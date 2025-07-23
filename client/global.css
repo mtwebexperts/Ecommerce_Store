@@ -1,0 +1,676 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Daraz-style Ecommerce Marketplace Theme
+   * Modern, vibrant, and conversion-optimized design
+   */
+  :root {
+    /* Light theme base colors - Ecommerce optimized */
+    --background: 0 0% 100%;
+    --foreground: 222 22% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 22% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 22% 14%;
+
+    /* Primary orange/red like Daraz */
+    --primary: 15 91% 51%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 22% 14%;
+
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 15 91% 51%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 15 91% 51%;
+
+    --radius: 0.5rem;
+
+    /* Ecommerce specific colors */
+    --success: 142 76% 36%;
+    --warning: 38 92% 50%;
+    --info: 199 89% 48%;
+    --sale: 348 83% 47%;
+
+    /* Brand gradients */
+    --gradient-primary: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-sale: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+
+    /* Section backgrounds */
+    --hero-bg: 0 0% 100%;
+    --section-bg: 0 0% 99%;
+    --sidebar-bg: 0 0% 98%;
+  }
+
+  .dark {
+    /* Dark theme for ecommerce */
+    --background: 222 22% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 22% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 22% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 15 91% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 222 22% 15%;
+    --secondary-foreground: 210 40% 90%;
+
+    --muted: 222 22% 15%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 15 91% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 222 22% 18%;
+    --input: 222 22% 18%;
+    --ring: 15 91% 55%;
+
+    --hero-bg: 222 22% 8%;
+    --section-bg: 222 22% 10%;
+    --sidebar-bg: 222 22% 12%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Enhanced animations and transitions */
+  * {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Disable transitions on page load */
+  .preload * {
+    transition: none !important;
+  }
+
+  /* Global focus styles */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.8);
+  }
+
+  /* Ecommerce specific utilities */
+  .price-text {
+    @apply text-primary font-bold text-lg;
+  }
+
+  .sale-badge {
+    @apply bg-red-500 text-white text-xs px-2 py-1 rounded;
+  }
+
+  /* Enhanced product card styles */
+  .product-card {
+    @apply bg-card border border-border rounded-lg p-4 transition-all duration-300 ease-out relative overflow-hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .product-card:hover {
+    @apply shadow-2xl transform -translate-y-2 scale-[1.02];
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .product-card:hover::before {
+    left: 100%;
+  }
+
+  /* Flash sale styles */
+  .flash-sale {
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+  }
+
+  .countdown-timer {
+    @apply bg-black/20 backdrop-blur text-white px-3 py-1 rounded font-mono text-sm;
+  }
+
+  /* Enhanced category card styles */
+  .category-card {
+    @apply relative overflow-hidden rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 p-6 text-center transition-all duration-500 ease-out cursor-pointer;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .category-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .category-card:hover {
+    @apply scale-105 shadow-xl;
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+
+  .category-card:hover::after {
+    transform: translateX(100%);
+  }
+
+  /* Banner slider styles */
+  .banner-slide {
+    @apply relative w-full h-64 md:h-80 lg:h-96 overflow-hidden rounded-xl;
+  }
+
+  /* Product grid */
+  .product-grid {
+    @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .product-grid {
+      @apply grid-cols-2 gap-2;
+    }
+
+    .product-card {
+      @apply p-2;
+    }
+  }
+
+  /* Animations */
+  .slide-in {
+    animation: slideIn 0.6s ease-out;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .scale-in {
+    animation: scaleIn 0.5s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(244, 73, 16, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(244, 73, 16, 0.6);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideInFromLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInFromRight {
+    0% {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  /* Badge styles */
+  .badge-new {
+    @apply bg-green-500 text-white text-xs px-2 py-1 rounded-full;
+  }
+
+  .badge-sale {
+    @apply bg-red-500 text-white text-xs px-2 py-1 rounded-full;
+  }
+
+  .badge-free-shipping {
+    @apply bg-blue-500 text-white text-xs px-2 py-1 rounded-full;
+  }
+
+  /* Rating stars */
+  .rating-stars {
+    @apply flex items-center gap-1;
+  }
+
+  /* Search bar styles */
+  .search-bar {
+    @apply relative flex-1 max-w-2xl mx-auto;
+  }
+
+  .search-suggestions {
+    @apply absolute top-full left-0 right-0 bg-card border border-border rounded-b-lg shadow-lg z-50 max-h-80 overflow-y-auto;
+  }
+
+  /* Cart bubble */
+  .cart-badge {
+    @apply absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center;
+  }
+
+  /* Seller badge */
+  .verified-seller {
+    @apply inline-flex items-center gap-1 text-green-600 text-sm;
+  }
+
+  /* Flash effect for deals */
+  .flash-effect {
+    animation: flash 2s infinite;
+  }
+
+  @keyframes flash {
+    0%, 50%, 100% {
+      opacity: 1;
+    }
+    25%, 75% {
+      opacity: 0.5;
+    }
+  }
+
+  /* Loading skeleton */
+  .skeleton {
+    @apply animate-pulse bg-muted rounded;
+  }
+
+  /* Toast notifications */
+  .toast-success {
+    @apply bg-green-500 text-white;
+  }
+
+  .toast-error {
+    @apply bg-red-500 text-white;
+  }
+
+  .toast-warning {
+    @apply bg-yellow-500 text-black;
+  }
+
+  /* Modal backdrop */
+  .modal-backdrop {
+    @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-50;
+  }
+
+  /* Live shopping styles */
+  .live-indicator {
+    @apply bg-red-500 text-white px-2 py-1 rounded text-xs font-bold animate-pulse;
+  }
+
+  /* Wishlist heart */
+  .wishlist-heart {
+    @apply transition-all duration-300 hover:scale-110;
+  }
+
+  .wishlist-heart.active {
+    @apply text-red-500;
+  }
+
+  /* Price comparison */
+  .price-original {
+    @apply text-muted-foreground line-through text-sm;
+  }
+
+  .price-discount {
+    @apply text-primary font-bold text-lg;
+  }
+
+  .savings {
+    @apply text-green-600 text-sm font-medium;
+  }
+}
+
+@layer components {
+  /* Enhanced button variants for ecommerce */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium transition-all duration-300 ease-out relative overflow-hidden;
+    box-shadow: 0 4px 14px 0 rgba(244, 73, 16, 0.3);
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-primary:hover {
+    @apply scale-105 shadow-lg;
+    box-shadow: 0 8px 25px 0 rgba(244, 73, 16, 0.4);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+
+  .btn-cart {
+    @apply bg-yellow-500 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 ease-out flex items-center gap-2 relative overflow-hidden;
+    box-shadow: 0 4px 14px 0 rgba(234, 179, 8, 0.3);
+  }
+
+  .btn-cart:hover {
+    @apply bg-yellow-600 scale-105;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px 0 rgba(234, 179, 8, 0.4);
+  }
+
+  .btn-buy-now {
+    @apply bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold transition-all duration-300 ease-out flex items-center gap-2 relative;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary)) 100%);
+    box-shadow: 0 4px 14px 0 rgba(244, 73, 16, 0.3);
+  }
+
+  .btn-buy-now:hover {
+    @apply scale-105;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px 0 rgba(244, 73, 16, 0.4);
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary)/0.9) 100%);
+  }
+
+  .btn-wishlist {
+    @apply border border-border px-3 py-3 rounded-lg transition-all duration-300 ease-out relative backdrop-blur-sm;
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  .btn-wishlist:hover {
+    @apply bg-muted scale-110 shadow-md;
+    transform: translateY(-1px) scale(1.1);
+  }
+
+  /* Enhanced card variants */
+  .card-product {
+    @apply bg-card border border-border rounded-lg overflow-hidden transition-all duration-500 ease-out relative;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .card-product:hover {
+    @apply shadow-2xl;
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .card-category {
+    @apply bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg p-6 text-center transition-all duration-500 ease-out cursor-pointer relative overflow-hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .card-category:hover {
+    @apply scale-105 shadow-xl;
+    transform: translateY(-8px) scale(1.05);
+    background: linear-gradient(135deg, hsl(var(--primary)/0.15) 0%, hsl(var(--accent)/0.15) 100%);
+  }
+
+  /* Enhanced form styles */
+  .form-input {
+    @apply border border-border rounded-md px-3 py-2 transition-all duration-300 ease-out backdrop-blur-sm;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .form-input:focus {
+    @apply outline-none ring-2 ring-primary/50 border-primary shadow-lg scale-[1.02];
+    box-shadow: 0 0 0 3px rgba(244, 73, 16, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-select {
+    @apply border border-border rounded-md px-3 py-2 bg-background transition-all duration-300 ease-out;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+  }
+
+  .form-select:focus {
+    @apply outline-none ring-2 ring-primary/50 shadow-lg;
+    box-shadow: 0 0 0 3px rgba(244, 73, 16, 0.1);
+  }
+
+  /* Enhanced navigation styles */
+  .nav-link {
+    @apply text-foreground transition-all duration-300 ease-out relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: hsl(var(--primary));
+    transition: width 0.3s ease-out;
+  }
+
+  .nav-link:hover {
+    @apply text-primary;
+    transform: translateY(-1px);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-dropdown {
+    @apply absolute top-full left-0 bg-card border border-border rounded-lg py-2 min-w-48 z-50 transition-all duration-300 ease-out;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease-out;
+  }
+
+  /* Enhanced filter styles */
+  .filter-chip {
+    @apply bg-muted text-muted-foreground px-3 py-1 rounded-full text-sm cursor-pointer transition-all duration-300 ease-out relative overflow-hidden;
+    backdrop-filter: blur(5px);
+  }
+
+  .filter-chip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: hsl(var(--primary));
+    transform: scaleX(0);
+    transition: transform 0.3s ease-out;
+    transform-origin: left;
+  }
+
+  .filter-chip:hover {
+    @apply text-primary-foreground scale-105;
+    transform: translateY(-1px) scale(1.05);
+  }
+
+  .filter-chip:hover::before {
+    transform: scaleX(1);
+  }
+
+  .filter-chip.active {
+    @apply bg-primary text-primary-foreground scale-105;
+    box-shadow: 0 4px 14px 0 rgba(244, 73, 16, 0.3);
+  }
+
+  /* Additional utility classes */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .floating-animation {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .glow-effect {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .shimmer-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  .bounce-in {
+    animation: bounceIn 0.6s ease-out;
+  }
+
+  .slide-in-left {
+    animation: slideInFromLeft 0.6s ease-out;
+  }
+
+  .slide-in-right {
+    animation: slideInFromRight 0.6s ease-out;
+  }
+
+  .pulse-animation {
+    animation: pulse 2s ease-in-out infinite;
+  }
+}
